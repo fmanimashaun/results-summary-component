@@ -1,0 +1,27 @@
+@use '../abstract/variables' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  // Font Size (Base set to 16px for easy scaling)
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $light-pink;
+  background-image: url('@/assets/images/background-pattern-desktop.svg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: auto 232px;
+
+  @media screen and (min-width: 1041px) {
+    background-size: 100% auto;
+  }
+}
