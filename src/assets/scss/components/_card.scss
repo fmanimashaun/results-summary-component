@@ -3,5 +3,7 @@
 @use '../abstract/placeholder';
 
 .card {
-	font-size: 1rem;
+	background-color: $neutral-white;
+	max-width: 736px;
+	margin-inline: auto;
 }
