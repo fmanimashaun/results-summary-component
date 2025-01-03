@@ -28,8 +28,6 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot/demo.gif)
-
 - Desktop
 
 <img src="./screenshot/desktop.png" alt="Desktop Image" width="1440px">
@@ -57,44 +55,33 @@ Users should be able to:
 
 ### What I learned
 
-It was really cool to create an accordion without writing a single javascript code. To achieve this, i make use of the native accordion functionality provided my the sematic html `details` and `summary` as shown below:
+To dynamically add the data using the provided json data, I make use of code below to dynamically generate the score list items. Also, I use the reduce() method to get the total score and find the average by dividing my number of scores using he length method. I also use object destructuring to extract only the score value from each object.
 
-```html
-<details>
-  <summary>What is Frontend Mentor?</summary>
-  <p>Frontend Mentor offers realistic coding challenges to help developers improve their frontend skills.</p>
-</details>
-```
+```ts
 
-Then I use css to manage the opening and closing state:
+// Create a variable to accumulate all list items
+let listItemsHTML = '';
 
-```css
-details {
-  position: relative;
-}
+data.forEach(({ category, score, icon }) => {
+  // Construct the HTML structure using template literals
+  listItemsHTML += `
+    <li class="card__summary-result ${category.toLowerCase()}">
+      <div class="card__summary-result-title">
+        <img class="card__summary-result-icon" src="${icon}" aria-hidden="true" alt="icon">
+        <h3 class="card__summary-result-name">${category}</h3>
+      </div>
+      <p class="card__summary-result-value"><span>${score}</span> / 100</p>
+    </li>
+  `;
+});
 
-details summary {
-  list-style: none;
-  appearance: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px;
-}
+// Append all list items to the container at once
+resultsContainer.innerHTML = listItemsHTML;
 
-details summary::after {
-  content: "";
-  width: 16px;
-  height: 16px;
-  background-image: url('path/to/closed-icon.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-}
+const totalScore = data.reduce((sum, { score }) => sum + score, 0);
+const averageScore = Math.round(totalScore / data.length);
 
-details[open] summary::after {
-  background-image: url('path/to/open-icon.svg');
-}
+resultScore.innerText = `${averageScore}`;
 
 ```
 
